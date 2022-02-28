@@ -13,10 +13,11 @@ Modified: 12/08/21
 const width = 900; 
 const height = 450; 
 const margin = {left:50, right:50, bottom:50, top:50}; 
-const yTooltipOffset = 15; 
+const yTooltipOffsetß = 15; 
 
 
 // TODO: What does this code do? 
+// set up the hardcode bar, and center svg1 
 const svg1 = d3
   .select("#hard-coded-bar")
   .append("svg")
@@ -42,28 +43,35 @@ const data1 = [
 */ 
 
 // TODO: What does this code do? 
+// returning data from data1
 let maxY1 = d3.max(data1, function(d) { return d.score; });
-
-// TODO: What does each line of this code do?   
+console.log("Max y1: ", maxY1)
+// TODO: What does each line of this code do?  
+// It provides the setup for y scale, computing y= ax+b
 let yScale1 = d3.scaleLinear()
             .domain([0,maxY1])
             .range([height-margin.bottom,margin.top]); 
 
 // TODO: What does each line of this code do? 
+// It provides the setup for x scale, computing y= ax+b
 let xScale1 = d3.scaleBand()
             .domain(d3.range(data1.length))
             .range([margin.left, width - margin.right])
             .padding(0.1); 
 
-// TODO: What does each line of this code do?  
+// TODO: What does each line of this code do?
+// adding g element to SVG, to group shapes together (x)
 svg1.append("g")
-   .attr("transform", `translate(${margin.left}, 0)`) 
+   .attr("transform", `translate(${margin.left}, 0)`)
+     // ^ move axis inside of left margin
    .call(d3.axisLeft(yScale1)) 
    .attr("font-size", '20px'); 
 
 // TODO: What does each line of this code do? 
+// adding g element to SVG, to group shapes together (y)
 svg1.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`) 
+      // ^ moves axis to bottom of svg 
     .call(d3.axisBottom(xScale1) 
             .tickFormat(i => data1[i].name))  
     .attr("font-size", '20px'); 
@@ -75,6 +83,7 @@ svg1.append("g")
 */
 
 // TODO: What does each line of this code do? 
+// 
 const tooltip1 = d3.select("#hard-coded-bar") 
                 .append("div") 
                 .attr('id', "tooltip1") 
